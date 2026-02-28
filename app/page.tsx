@@ -348,7 +348,7 @@ export default function ComingSoon() {
               fontFamily: "'DM Sans', sans-serif",
             }}
           >
-            Pay to roast who you want, get roasted by who you want,{' '}
+            pay to roast who you want, get roasted by who you want,{' '}
             <span style={{ color: '#00cba9', fontWeight: 600 }}>you cooked for eating SOL.</span>
           </motion.p>
 
