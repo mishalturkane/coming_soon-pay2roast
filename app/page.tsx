@@ -82,9 +82,8 @@ function Colon() {
   );
 }
 
-// Launch date = 21 days from NOW at midnight IST (UTC+5:30)
+// March 16, 2026 at midnight IST (UTC+5:30) = March 15, 2026 18:30 UTC
 function getLaunchDate() {
-  // March 16, 2026 at midnight IST (UTC+5:30) = March 15, 2026 18:30 UTC
   return new Date('2026-03-15T18:30:00.000Z');
 }
 
@@ -99,13 +98,14 @@ function getTimeUntil(target: Date) {
   };
 }
 
+const LAUNCH_DATE = getLaunchDate();
+
 export default function ComingSoon() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'exists'>('idle');
   const [message, setMessage] = useState('');
   const [mounted, setMounted] = useState(false);
-  const [launchDateRef] = useState(() => ({ current: null as Date | null }));
-  const [countdown, setCountdown] = useState({ days: 21, hours: 0, minutes: 0, seconds: 0 });
+  const [countdown, setCountdown] = useState({ days: 15, hours: 0, minutes: 0, seconds: 0 });
 
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -114,11 +114,8 @@ export default function ComingSoon() {
 
   useEffect(() => {
     setMounted(true);
-    launchDateRef.current = getLaunchDate();
-    setCountdown(getTimeUntil(launchDateRef.current));
-    const tick = setInterval(() => {
-      if (launchDateRef.current) setCountdown(getTimeUntil(launchDateRef.current));
-    }, 1000);
+    setCountdown(getTimeUntil(LAUNCH_DATE));
+    const tick = setInterval(() => setCountdown(getTimeUntil(LAUNCH_DATE)), 1000);
     return () => clearInterval(tick);
   }, []);
 
@@ -300,8 +297,42 @@ export default function ComingSoon() {
             PAY2<span style={{ color: '#BAFF29', textShadow: '0 0 40px #BAFF2966, 0 0 80px #BAFF2922' }}>ROAST</span>
           </motion.h1>
 
-
-          
+          {/* X Follow Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.22 }}
+            style={{ marginBottom: 'clamp(0.5rem, 1.5vh, 0.9rem)' }}
+          >
+            <a
+              href="https://x.com/pay2roastdotfun"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                background: '#BAFF2915', border: '1px solid #BAFF2940',
+                color: '#BAFF29', borderRadius: '4px',
+                padding: '4px 12px', textDecoration: 'none',
+                fontFamily: "'DM Mono', monospace",
+                fontSize: 'clamp(0.58rem, 1.1vw, 0.65rem)',
+                letterSpacing: '0.12em', textTransform: 'uppercase',
+                transition: 'background 0.2s, border-color 0.2s',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLAnchorElement).style.background = '#BAFF2925';
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = '#BAFF2970';
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLAnchorElement).style.background = '#BAFF2915';
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = '#BAFF2940';
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Follow @pay2roastdotfun
+            </a>
+          </motion.div>
 
           {/* Description */}
           <motion.p
