@@ -84,7 +84,7 @@ function Colon() {
 
 // March 16, 2026 at midnight IST (UTC+5:30) = March 15, 2026 18:30 UTC
 function getLaunchDate() {
-  return new Date('2026-03-15T18:30:00.000Z');
+  return new Date('2026-03-30T18:30:00.000Z');
 }
 
 function getTimeUntil(target: Date) {
